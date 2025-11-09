@@ -205,6 +205,22 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Automatically split and open terminal on startup
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    -- Split horizontally
+    vim.cmd 'split'
+    -- Move to the new split (bottom window)
+    vim.cmd 'wincmd j'
+    -- Open terminal
+    vim.cmd 'term'
+    -- Resize to 12 lines
+    vim.cmd 'resize 12'
+    -- Move back to the top window
+    vim.cmd 'wincmd k'
+  end,
+})
+
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
@@ -951,7 +967,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'rust', 'ron' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
