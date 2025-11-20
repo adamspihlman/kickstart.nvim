@@ -208,15 +208,20 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- Automatically split and open terminal on startup
 vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
-    -- Split horizontally
+    -- Split vertically
+    vim.cmd 'vsplit'
+    -- Move to the right window
+    vim.cmd 'wincmd l'
+    -- Split horizontally on the right side
     vim.cmd 'split'
-    -- Move to the new split (bottom window)
+    -- Move to the bottom right window
     vim.cmd 'wincmd j'
     -- Open terminal
     vim.cmd 'term'
     -- Resize to 12 lines
     vim.cmd 'resize 12'
-    -- Move back to the top window
+    -- Move back to the top left window
+    vim.cmd 'wincmd h'
     vim.cmd 'wincmd k'
   end,
 })
